@@ -22,7 +22,7 @@ public class TodoService {
     }
 
     public Todo create(Todo todo) {
-        return todoRepository.save(todo);
+        return todoRepository.insert(todo);
     }
 
     public Todo remove(String id) {

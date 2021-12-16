@@ -49,19 +49,20 @@ public class TodoServiceTest {
         //then
         assertEquals(todo1, actual);
     }
-//    @Test
-//    void should_return_item_when_create_new_todo_item_given_new_todo_item() {
-//        //given
-//        Todo todo = new Todo("memo1",false);
-//        //when
-//        given(todoRepository.insert(todo))
-//                .willReturn(todo);
-//        Todo actual = todoService.create(todo);
-//        System.out.println(actual.getId());
-//        System.out.println(actual.getContent());
-//        //then
-//        assertEquals(todo, actual);
-//    }
+
+    @Test
+    void should_return_item_when_create_new_todo_item_given_new_todo_item() {
+        //given
+        Todo todo = new Todo("memo1",false);
+        //when
+        given(todoRepository.insert(todo))
+                .willReturn(todo);
+        Todo actual = todoService.create(todo);
+        System.out.println(actual.getId());
+        System.out.println(actual.getContent());
+        //then
+        assertEquals(todo, actual);
+    }
 
 
 //    @Test
