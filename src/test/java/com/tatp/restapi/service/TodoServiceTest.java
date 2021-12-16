@@ -77,4 +77,19 @@ public class TodoServiceTest {
         verify(todoRepository).deleteById(todo.getId());
         assertEquals(0, todoRepository.findAll().size());
     }
+    @Test
+    void should_return_item_when_update_content_given_new_todo_item_content() {
+        //given
+        Todo todo = new Todo("memo1",false);
+        Todo updatedTodo = new Todo("memo2", false);
+        todo.setContent(updatedTodo.getContent());
+        given(todoRepository.findById(todo.getId()))
+                .willReturn(java.util.Optional.of(todo));
+        given(todoRepository.save(updatedTodo))
+                .willReturn(todo);
+        //when
+        Todo actual = todoService.edit(todo.getId(), updatedTodo);
+        //then
+        assertEquals(updatedTodo.getId(), actual.getId());
+    }
 }
