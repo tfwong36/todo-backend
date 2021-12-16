@@ -13,6 +13,10 @@ public class Todo {
         this.content = content;
         this.done = false;
     }
+    public Todo(String content, Boolean done){
+        this.content = content;
+        this.done = done;
+    }
 
     public Todo(){
     }
