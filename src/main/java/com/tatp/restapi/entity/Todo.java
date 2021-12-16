@@ -1,26 +1,28 @@
 package com.tatp.restapi.entity;
 
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.FieldType;
 import org.springframework.data.mongodb.core.mapping.MongoId;
 
 public class Todo {
     @MongoId(FieldType.OBJECT_ID)
+    @Id
     private String id;
     private String content;
     private Boolean done;
 
-    public Todo(String content) {
-        this.content = content;
-        this.done = false;
+    public Todo(){
     }
+
     public Todo(String content, Boolean done){
         this.content = content;
         this.done = done;
     }
 
-    public Todo(){
+    public Todo(String content) {
+        this.content = content;
+        this.done = false;
     }
-
     public String getId() {
         return id;
     }
