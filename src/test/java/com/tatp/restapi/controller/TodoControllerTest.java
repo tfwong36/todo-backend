@@ -43,4 +43,19 @@ public class TodoControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$[1].content").value("memo2"));
     }
 
+
+    @Test
+    void should_return_todo_item_when_perform_post_create_given_todo_item() throws Exception {
+        //given
+        String newTodo="{\"content\": \"Post memo\"}";
+
+        //when
+        //then
+        mockMvc.perform(post("/todos")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(newTodo))
+                .andExpect(MockMvcResultMatchers.status().isCreated())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.content").value("Post memo"));
+        assertEquals(1, todoRepository.findAll().size());
+    }
 }
