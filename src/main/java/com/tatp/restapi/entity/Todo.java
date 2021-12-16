@@ -11,18 +11,15 @@ public class Todo {
     private String content;
     private Boolean done;
 
-    public Todo(){
-    }
 
     public Todo(String content, Boolean done){
         this.content = content;
         this.done = done;
     }
 
-    public Todo(String content) {
-        this.content = content;
-        this.done = false;
+    public Todo(){
     }
+
     public String getId() {
         return id;
     }

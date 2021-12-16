@@ -14,6 +14,8 @@ import java.util.List;
 import static org.mockito.BDDMockito.given;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.BDDMockito.willDoNothing;
+import static org.mockito.Mockito.verify;
 
 @ExtendWith(SpringExtension.class)
 public class TodoServiceTest {
@@ -58,31 +60,21 @@ public class TodoServiceTest {
         given(todoRepository.insert(todo))
                 .willReturn(todo);
         Todo actual = todoService.create(todo);
-        System.out.println(actual.getId());
-        System.out.println(actual.getContent());
         //then
         assertEquals(todo, actual);
     }
 
-
-//    @Test
-//    void should_return_item_when_update_content_given_new_todo_item_content() {
-//        //given
-//        Todo todo = new Todo("memo1",false);
-//        Todo updatedTodo = new Todo("memo2");
-//        todo.setContent(updatedTodo.getContent());
-//        given(todoRepository.findById(todo.getId()))
-//                .willReturn(java.util.Optional.of(todo));
-//        given(todoRepository.save(updatedTodo))
-//                .willReturn(todo);
-//        System.out.println(todo.getContent());
-//        System.out.println(todo.getId());
-//        //when
-//        Todo actual = todoService.edit(todo.getId(), updatedTodo);
-//        System.out.println(actual.getContent());
-//        //then
-//        assertEquals(updatedTodo.getId(), actual.getId());
-//    }
-
-
+    @Test
+    void should_delete_todo_when_perform_delete_given_todo_and_id() throws Exception {
+        //given
+        Todo todo = new Todo("demo1",false);
+        given(todoRepository.findById(todo.getId()))
+                .willReturn(java.util.Optional.of(todo));
+        willDoNothing().given(todoRepository).deleteById(todo.getId());
+        //when
+        todoService.remove(todo.getId());
+        //then
+        verify(todoRepository).deleteById(todo.getId());
+        assertEquals(0, todoRepository.findAll().size());
+    }
 }
