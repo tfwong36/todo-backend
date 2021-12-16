@@ -92,5 +92,19 @@ public class TodoControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.done").value(true));
 
     }
+    @Test
+    void should_return_nothing_when_perform_delete_given_a_todo_item() throws Exception {
+        //given
+        todoRepository.save(new Todo("memo1", false));
+
+        //when
+        //then
+        System.out.printf("/todos/" + todoRepository.findAll().get(0).getId());
+        mockMvc.perform(delete("/todos/" + todoRepository.findAll().get(0).getId())
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isNoContent());
+        assertEquals(0, todoRepository.findAll().size());
+    }
+
 
 }
