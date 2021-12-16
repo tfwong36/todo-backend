@@ -61,7 +61,7 @@ public class TodoControllerTest {
     }
 
     @Test
-    void should_return_todo_item_when_perform_put_to_update__given_todo_item_and_new_content() throws Exception {
+    void should_return_todo_item_when_perform_put_to_update_content_given_todo_item_and_new_content() throws Exception {
         //given
         todoRepository.save(new Todo("memo1", false));
         String updateTodo="{\"content\": \"Post memo\"}";
@@ -74,6 +74,22 @@ public class TodoControllerTest {
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.content").value("Post memo"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.done").value(false));
+
+    }
+    @Test
+    void should_return_todo_item_when_perform_put_to_update_done_given_todo_item_and_new_content() throws Exception {
+        //given
+        todoRepository.save(new Todo("memo1", false));
+        String updateTodo="{\"done\":true}";
+
+        //when
+        //then
+        mockMvc.perform(put("/todos/" + todoRepository.findAll().get(0).getId())
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(updateTodo))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.content").value("memo1"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.done").value(true));
 
     }
 
